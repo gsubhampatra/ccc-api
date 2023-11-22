@@ -1,8 +1,7 @@
-// server.js
-const express = require('express');
-const axios = require('axios');
-const Parser = require('rss-parser');
-const cors = require('cors');
+import express from 'express';
+import axios from 'axios';
+import { Parser } from 'rss-parser';
+import cors from 'cors';
 
 const app = express();
 const PORT = process.env.PORT || 9000;
