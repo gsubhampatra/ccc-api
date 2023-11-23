@@ -8,7 +8,7 @@ const getDataFromCache = (key) => {
 };
 
 const setDataInCache = (key, data) => {
-  cache.set(key, data, 1800); // Cache data for 30 minutes (1800 seconds)
+  cache.set(key, data, 10); // Cache data for 30 minutes (1800 seconds)
 };
 
 export { getDataFromCache, setDataInCache };
