@@ -1,13 +1,20 @@
-// controllers/rssController.js
-import { fetchRssData } from '../services/rssService.js';
+import returnJsonData from "../utils/returnJsonData.js";
+import returnJsonPosts from "../utils/returnPost.js";
 
-const getRssData = async (req, res) => {
+const getPosts = async (req, res) => {
   try {
-    const rssData = await fetchRssData();
-    res.json(rssData);
+    const { usermedium } = req.params;
+
+    const mediumPosts =
+      usermedium && (await returnJsonData(usermedium.toString()));
+
+    const dataMedium = returnJsonPosts(mediumPosts, mediumPosts.items);
+
+    res.json({ dataMedium });
   } catch (error) {
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error("Error:", error);
+    res.status(500).json({ message: "User not found" });
   }
 };
 
-export { getRssData };
+export { getPosts };

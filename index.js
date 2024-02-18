@@ -1,18 +1,28 @@
-// index.js
+// Import required modules
 import express from 'express';
 import cors from 'cors';
-import rssRoutes from './routes/rssRoutes.js';
+import { getPosts } from './controllers/rssController.js';
 
+// Initialize Express app
 const app = express();
-const PORT = process.env.PORT || 9000;
+const port = 3000;
 
+// Enable CORS
 app.use(cors());
-app.use(express.json());
-app.get('/', (req, res) => {
-  res.send('Welcome to CCC API');
-});
-app.use('/api',rssRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+// Define middleware to parse JSON requests
+app.use(express.json());
+
+// Define endpoint handler
+app.get('/api/medium-posts/:usermedium',getPosts );
+
+// Start the server
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
 });
+
+
+
+
+
+
