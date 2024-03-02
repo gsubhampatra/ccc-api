@@ -1,11 +1,31 @@
 // Import required modules
-import express from 'express';
-import cors from 'cors';
-import { getPosts } from './controllers/rssController.js';
+import express from "express";
+import cors from "cors";
+import { getPosts } from "./controllers/rssController.js";
+import {
+  RegisterEvent,
+  clearRegistrations,
+  getRegisteredEvents,
+} from "./controllers/registerEvent.js";
+
+const DBURI = "mongodb+srv://subhampatradev:ccc@cccdb.vwxznl2.mongodb.net/";
+
+// Connect to MongoDB
+import mongoose from "mongoose";
+
+(async () => {
+  try {
+    const conn = await mongoose.connect(DBURI);
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.error(`Error: ${error.message}`);
+    process.exit(1);
+  }
+})();
 
 // Initialize Express app
 const app = express();
-const port = 3000;
+const port = 5000;
 
 // Enable CORS
 app.use(cors());
@@ -14,15 +34,11 @@ app.use(cors());
 app.use(express.json());
 
 // Define endpoint handler
-app.get('/api/medium-posts/:usermedium',getPosts );
-
+app.get("/api/medium-posts/:usermedium", getPosts);
+app.post("/api/register", RegisterEvent);
+app.get("/api/get-data", getRegisteredEvents);
+app.post("/api/clear-data",clearRegistrations)
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
-
-
-
-
-
-

@@ -11,6 +11,7 @@ const getPosts = async (req, res) => {
     const dataMedium = returnJsonPosts(mediumPosts, mediumPosts.items);
 
     res.json({ dataMedium });
+
   } catch (error) {
     console.error("Error:", error);
     res.status(500).json({  message: "User not found" });
