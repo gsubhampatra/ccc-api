@@ -7,9 +7,9 @@ import {
   clearRegistrations,
   getRegisteredEvents,
 } from "./controllers/registerEvent.js";
+import registrationRoutes from "./routes/registrationRoutes.js";
 
 const DBURI = "mongodb+srv://subhampatradev:ccc@cccdb.vwxznl2.mongodb.net/";
-
 // Connect to MongoDB
 import mongoose from "mongoose";
 
@@ -33,11 +33,11 @@ app.use(cors());
 // Define middleware to parse JSON requests
 app.use(express.json());
 
+app.use("/api",registrationRoutes)
+
 // Define endpoint handler
 app.get("/api/medium-posts/:usermedium", getPosts);
-app.post("/api/register", RegisterEvent);
-app.get("/api/get-data", getRegisteredEvents);
-app.post("/api/clear-data",clearRegistrations)
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
