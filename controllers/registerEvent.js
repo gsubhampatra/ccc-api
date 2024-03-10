@@ -86,6 +86,8 @@ const gameRegistration = async (req, res) => {
     player_2_id,
     player_3_id,
     ticket,
+    event_url,
+    wp_grp_url
   } = req.body;
   try {
     const data = await GameRegistration.create({
@@ -108,7 +110,7 @@ const gameRegistration = async (req, res) => {
     }
     res.status(200).json({ success: true, message: "Registration successful", data });
     
-    await sendMail(email,leader_name,event_name,ticket)
+    await sendMail(email,leader_name,event_name,ticket,event_url,wp_grp_url)
 
   } catch (error) {
     console.error("Error:", error);
