@@ -29,7 +29,7 @@ const sendMail = async (
     <p style="font-size: 24px"><b>Event - </b>${event_name}</p>
 
     <p style="font-size: 30px;"><b>TicketID - #${ticket}</b></p>
-    <a href="https://cloudcomputingclub.in/${event_url}">
+    <a href="https://cloudcomputingclub.in${event_url}">
     <button style="padding: 10px 25px; background-color: orange; border-radius: 8px; border: none; color: white; font-size: 18px;">
      Event Details </button>
     </a>
