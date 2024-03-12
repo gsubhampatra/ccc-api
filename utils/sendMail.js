@@ -25,7 +25,7 @@ const sendMail = async (
     html: `
     <div><center>
     <img src="https://i.ibb.co/VBCyyGk/logo-cutted.png" width="80" height="100" alt="nist-ccc" />
-    <h1 style="color: green; margin-top: -10px; text-transform: capitalize;">${name}, Registration Confirmed!</h1>
+    <h1 style="color: green; margin-top: -10px; text-transform: capitalize;">${name}, Registration Confirmed!🎉</h1>
     <p style="font-size: 24px"><b>Event - </b>${event_name}</p>
 
     <p style="font-size: 30px;"><b>TicketID - #${ticket}</b></p>
@@ -34,7 +34,7 @@ const sendMail = async (
      Event Details </button>
     </a>
     <a href="${wp_grp_url}">
-    <button style="padding: 10px 25px; margin-top:"10px" background-color: orange; border-radius: 8px; border: none; color: white; font-size: 18px;">
+    <button style="padding: 10px 25px; margin-top:"10px"; background-color: green; border-radius: 8px; border: none; color: white; font-size: 18px;">
      Join Whatsapp Group</button>
     </a>
     <article style="margin-top: 40px; text-align: 'left'">
