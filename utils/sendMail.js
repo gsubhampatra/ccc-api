@@ -34,7 +34,7 @@ const sendMail = async (
      Event Details </button>
     </a>
     <a href="${wp_grp_url}">
-    <button style="padding: 10px 25px; margin-top:"10px"; background-color: green; border-radius: 8px; border: none; color: white; font-size: 18px;">
+    <button style="padding: 10px 25px; margin-top:10px; background-color: green; border-radius: 8px; border: none; color: white; font-size: 18px;">
      Join Whatsapp Group</button>
     </a>
     <article style="margin-top: 40px; text-align: 'left'">
