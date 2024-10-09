@@ -1,4 +1,4 @@
-import { sendMail } from "../utils/sendMail";
+import { sendMail } from "../utils/sendMail.js";
 
 let emailQueue = [];
 

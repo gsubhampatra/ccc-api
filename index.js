@@ -15,7 +15,7 @@ import authMiddleware from "./middleware/authMiddleware.js";
 const DBURI = process.env.DB_URI;
 
 // Connect to MongoDB
-(async () => {
+const connectDB = async () => {
   try {
     const conn = await mongoose.connect(DBURI);
     console.log(`MongoDB Connected: ${conn.connection.host}`);
@@ -23,7 +23,7 @@ const DBURI = process.env.DB_URI;
     console.error(`Error: ${error.message}`);
     process.exit(1);
   }
-})();
+};
 
 // Initialize Express app
 const app = express();
@@ -35,21 +35,28 @@ app.use(cors());
 // Middleware to parse JSON requests
 app.use(express.json());
 
-app.get("/", (req, res) => {  
+app.get("/", (req, res) => {
   res.send("Welcome to CCC API");
 });
 
-app.use('/api', authMiddleware); // Apply middleware to all routes under /api
+app.use("/api", authMiddleware, (req,res)=>{
+  res.json({
+     "status": "success",
+     "message": "Welcome Dev",
+     "devmode": "on"
 
+  })
+}); // Apply middleware to all routes under /api
 
 // Define routes
-app.use("/api/admin", adminRoutes);          // Admin Routes (Achievement, Gallery, Winners, Hiring)
-app.use("/api/events", eventRoutes);         // Event Routes (CRUD for Events)
-app.use("/api/members", memberRoutes);       // Member Routes (CRUD for Members)
-app.use("/api/projects", projectRoutes);     // Project Routes (CRUD for Projects)
-app.use("/api/registrations", registrationRoutes);  // Registration Routes (Event Registrations)
+app.use("/api/admin", adminRoutes); // Admin Routes (Achievement, Gallery, Winners, Hiring)
+app.use("/api/events", eventRoutes); // Event Routes (CRUD for Events)
+app.use("/api/members", memberRoutes); // Member Routes (CRUD for Members)
+app.use("/api/projects", projectRoutes); // Project Routes (CRUD for Projects)
+app.use("/api/registrations", registrationRoutes); // Registration Routes (Event Registrations)
 
 // Start the server
-app.listen(port, () => {
+app.listen(port, async () => {
+  await connectDB();
   console.log(`Server is running on http://localhost:${port}`);
 });
