@@ -1,18 +1,20 @@
 // Import required modules
 import express from "express";
 import cors from "cors";
-import { getPosts } from "./controllers/rssController.js";
-import {
-  RegisterEvent,
-  clearRegistrations,
-  getRegisteredEvents,
-} from "./controllers/registerEvent.js";
-import registrationRoutes from "./routes/registrationRoutes.js";
-
-const DBURI = "mongodb+srv://subhampatradev:ccc@cccdb.vwxznl2.mongodb.net/";
-// Connect to MongoDB
+import "dotenv/config";
 import mongoose from "mongoose";
 
+// Import route files
+import adminRoutes from "./routes/adminRoutes.js";
+import eventRoutes from "./routes/eventRoutes.js";
+import memberRoutes from "./routes/memberRoutes.js";
+import projectRoutes from "./routes/projectRoutes.js";
+import registrationRoutes from "./routes/registrationRoutes.js";
+import authMiddleware from "./middleware/authMiddleware.js";
+
+const DBURI = process.env.DB_URI;
+
+// Connect to MongoDB
 (async () => {
   try {
     const conn = await mongoose.connect(DBURI);
@@ -25,18 +27,27 @@ import mongoose from "mongoose";
 
 // Initialize Express app
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 // Enable CORS
 app.use(cors());
 
-// Define middleware to parse JSON requests
+// Middleware to parse JSON requests
 app.use(express.json());
 
-app.use("/api",registrationRoutes)
+app.get("/", (req, res) => {  
+  res.send("Welcome to CCC API");
+});
 
-// Define endpoint handler
-app.get("/api/medium-posts/:usermedium", getPosts);
+app.use('/api', authMiddleware); // Apply middleware to all routes under /api
+
+
+// Define routes
+app.use("/api/admin", adminRoutes);          // Admin Routes (Achievement, Gallery, Winners, Hiring)
+app.use("/api/events", eventRoutes);         // Event Routes (CRUD for Events)
+app.use("/api/members", memberRoutes);       // Member Routes (CRUD for Members)
+app.use("/api/projects", projectRoutes);     // Project Routes (CRUD for Projects)
+app.use("/api/registrations", registrationRoutes);  // Registration Routes (Event Registrations)
 
 // Start the server
 app.listen(port, () => {

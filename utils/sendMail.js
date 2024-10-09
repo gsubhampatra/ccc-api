@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import "dotenv/config";
 const sendMail = async (
   email,
   name,
@@ -7,12 +8,14 @@ const sendMail = async (
   event_url,
   wp_grp_url
 ) => {
+  const  EMAIL = process.env.EMAIL;
+  const PASSWORD = process.env.PASSWORD; 
   var transporter = nodemailer.createTransport({
     service: "gmail",
     host: "smtp.gmail.com",
     auth: {
-      user: "nistcloudcomputingclub@gmail.com",
-      pass: "cpleberioysyjhux",
+      user: EMAIL,
+      pass: PASSWORD,
     },
   });
   let from = "Cloud Computing Club <nistcloudcomputingclub@gmail.com>";
