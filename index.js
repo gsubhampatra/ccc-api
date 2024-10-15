@@ -32,14 +32,11 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 // Enable CORS
-app.use(cors(
-  {
+app.use(
+  cors({
     origin: "*",
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-
-  }
-));
+  })
+);
 
 // Middleware to parse JSON requests
 app.use(express.json());
