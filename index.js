@@ -13,12 +13,12 @@ import registrationRoutes from "./routes/registrationRoutes.js";
 import authMiddleware from "./middleware/authMiddleware.js";
 
 const DBURI = process.env.DB_URI;
-
+const DBNAME = process.env.DB_NAME || "cccdb";
 // Connect to MongoDB
 const connectDB = async () => {
   try {
     const conn = await mongoose.connect(DBURI, {
-      dbName: "",
+      dbName: DBNAME,
     });
     console.log(`MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
@@ -37,7 +37,7 @@ app.use(cors(
     origin: "*",
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
-    
+
   }
 ));
 
@@ -48,13 +48,7 @@ app.get("/", (req, res) => {
   res.send("Welcome to CCC API");
 });
 
-app.use("/api", authMiddleware, (req, res) => {
-  res.json({
-    status: "success",
-    message: "Welcome Dev",
-    devmode: "on",
-  });
-}); // Apply middleware to all routes under /api
+app.use("/api", authMiddleware); // Apply middleware to all routes under /api
 
 // Define routes
 app.use("/api/admin", adminRoutes); // Admin Routes (Achievement, Gallery, Winners, Hiring)
